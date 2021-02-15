@@ -1,6 +1,7 @@
 package com.joon.springjpa;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,34 +21,11 @@ import java.util.List;
 @Component
 @Transactional
 public class JpaRunner implements ApplicationRunner {
-    @PersistenceContext
-    EntityManager entityManager;
+    @Autowired
+    PostRepository postRepository;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        Post post=new Post();
-        post.setTitle("안녕하세요");
-
-        Comment comment=new Comment();
-        comment.setComment("hello");
-        post.addComment(comment);
-
-        entityManager.persist(post);
-
-        /* TypeSafe 하지 않음
-
-        TypedQuery<Post> query = entityManager.createQuery("select p from Post as p", Post.class);
-        List<Post> posts = query.getResultList();
-        posts.forEach(System.out::println);
-        */
-
-        //TypeSafe한 방법
-        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        CriteriaQuery<Post> query = builder.createQuery(Post.class);
-        Root<Post> root = query.from(Post.class);
-        query.select(root);
-        List<Post> posts = entityManager.createQuery(query).getResultList();
-        posts.forEach(System.out::println);
-
+      postRepository.findAll().forEach(System.out::println);
 
 
     }
