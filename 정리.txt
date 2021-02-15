@@ -71,5 +71,13 @@ spring.jpa.hibernate.ddl-auto=create
         study.setOwner(null);
     }
 ===========================================================
+10.	JPA 프로그래밍: Cascade
+ @OneToMany(mappedBy = "post", cascade = CascadeType.ALL )
+    private Set<Comment> comments=new HashSet<>();
+
+    cascade를 사용할 경우 객체에 변화에 따라 자동으로 전파
+
+===========================================================
+
 
 
