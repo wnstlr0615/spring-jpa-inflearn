@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.util.Date;
 
 @Component
 @Transactional
@@ -19,6 +20,7 @@ public class JpaRunner implements ApplicationRunner {
         Account account=Account.builder()
                             .username("joon123")
                             .password("1234")
+                            .created(new Date())
                             .build();
         Session session = entityManager.unwrap(Session.class);
 
