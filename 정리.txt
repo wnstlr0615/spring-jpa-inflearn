@@ -50,4 +50,26 @@ spring.jpa.hibernate.ddl-auto=create
 
 @Embedded와 @Embeddable 사용
 @AttributeOverrides 와 @AttributeOverride
+같은 부류의 변수들을 새로운 클래스를 생성하여 표기하는 방법
+중복 특성을 가지는 변수들을 중복 생성하는 방법
+===========================================================
+9.	JPA 프로그래밍: 1대다 맵핑
+관계에 주인은 다쪽이 가진다.
+일 대 다 단방향 매핑
+다 대 일 단방향 매핑
+
+일 대 다 양방향 매핑
+양방향 매핑시 @OneToMany 에 관계에 주인 설정
+
+양방향 관계시 관계를 형성하는 구문을 하나의 메소드로  묶어서 생성
+ public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
+    }
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
+    }
+===========================================================
+
 

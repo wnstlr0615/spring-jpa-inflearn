@@ -5,6 +5,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 @Builder
 @Getter
@@ -24,7 +26,7 @@ public class Account {
     @Transient
     private String no;
 
-    @Embedded
+   /* @Embedded
     @AttributeOverrides(
            value = { @AttributeOverride(name = "street", column = @Column(name = "home_street")),
                    @AttributeOverride(name="city", column = @Column(name = "home_city")),
@@ -35,5 +37,16 @@ public class Account {
 
     @Embedded
     private Address officeAddress;
+    */
+    @OneToMany(mappedBy = "owner")
+    private Set<Study> studies;
 
+    public void addStudy(Study study) {
+        this.getStudies().add(study);
+        study.setOwner(this);
+    }
+    public void removeStudy(Study study) {
+        this.getStudies().remove(study);
+        study.setOwner(null);
+    }
 }
