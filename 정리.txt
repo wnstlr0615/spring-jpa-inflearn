@@ -78,7 +78,25 @@ spring.jpa.hibernate.ddl-auto=create
     cascade를 사용할 경우 객체에 변화에 따라 자동으로 전파
 
 ===========================================================
+11.	JPA 프로그래밍: Fetch
 
 oneToMany에 경우 기본 적으로 fetch가 lazy로 적용 되어 있다.
 ManyToOne은 Eager 이다.
-11.	JPA 프로그래밍: Fetch
+===========================================================
+12.	JPA 프로그래밍: Query
+/* TypeSafe 하지 않음
+
+    TypedQuery<Post> query = entityManager.createQuery("select p from Post as p", Post.class);
+    List<Post> posts = query.getResultList();
+    posts.forEach(System.out::println);
+    */
+
+//TypeSafe한 방법
+    CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+    CriteriaQuery<Post> query = builder.createQuery(Post.class);
+    Root<Post> root = query.from(Post.class);
+    query.select(root);
+    List<Post> posts = entityManager.createQuery(query).getResultList();
+    posts.forEach(System.out::println);
+
+    다음과 같이 쿼리를 사용할 수도 있다.

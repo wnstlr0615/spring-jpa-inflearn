@@ -8,8 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 
 @Component
 @Transactional
@@ -18,22 +24,31 @@ public class JpaRunner implements ApplicationRunner {
     EntityManager entityManager;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-      /* Post post=new Post();
-       post.setTitle("Spring Data JPA ");
+        Post post=new Post();
+        post.setTitle("안녕하세요");
 
         Comment comment=new Comment();
         comment.setComment("hello");
-        Comment comment1=new Comment();
-        comment1.setComment("hello1");
         post.addComment(comment);
-        post.addComment(comment1);*/
 
-        Session session = entityManager.unwrap(Session.class);
-        //session.save(post);
-       // session.save(comment);
-       // session.save(comment1);
-        Post post = session.get(Post.class, 1L);
-        session.delete(post);
+        entityManager.persist(post);
+
+        /* TypeSafe 하지 않음
+
+        TypedQuery<Post> query = entityManager.createQuery("select p from Post as p", Post.class);
+        List<Post> posts = query.getResultList();
+        posts.forEach(System.out::println);
+        */
+
+        //TypeSafe한 방법
+        CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Post> query = builder.createQuery(Post.class);
+        Root<Post> root = query.from(Post.class);
+        query.select(root);
+        List<Post> posts = entityManager.createQuery(query).getResultList();
+        posts.forEach(System.out::println);
+
+
 
     }
 }
