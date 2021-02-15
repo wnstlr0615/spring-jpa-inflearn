@@ -79,5 +79,6 @@ spring.jpa.hibernate.ddl-auto=create
 
 ===========================================================
 
-
-
+oneToMany에 경우 기본 적으로 fetch가 lazy로 적용 되어 있다.
+ManyToOne은 Eager 이다.
+11.	JPA 프로그래밍: Fetch
