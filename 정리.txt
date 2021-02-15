@@ -46,5 +46,8 @@ spring.jpa.hibernate.ddl-auto=create
 
 @Transient
 ===========================================================
+8.	JPA 프로그래밍: Value 타입 맵핑
 
+@Embedded와 @Embeddable 사용
+@AttributeOverrides 와 @AttributeOverride
 
