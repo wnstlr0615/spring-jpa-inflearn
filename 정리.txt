@@ -126,4 +126,12 @@ Page<Post> findByTitleContains(String title, Pageable pageable);
 커스텀 한 Repository 만들기
 
 ===========================================================
+18.	스프링 데이터 Common: Null 처리하기
+
+스프링 데이터는 단일 데이터의 경우 Optional로 반환 가능
+Optional의 경우 테스트 코드 작성 시
+assertThat(byId).isEmpty(); 비어 있는 지 검사 한다.  (Null로 검사 하지 않음);
+스프링5 부터 @NonNull, @Nullable 사용 가능
+
+
 
