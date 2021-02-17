@@ -17,6 +17,8 @@ public class Comment {
 
     private String comment;
 
+    private Integer likeCount=0;
+
     @ManyToOne
     private Post post;
 }

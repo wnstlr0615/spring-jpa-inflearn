@@ -139,7 +139,16 @@ assertThat(byId).isEmpty(); 비어 있는 지 검사 한다.  (Null로 검사 �
 ●	미리 정의해 둔 쿼리 찾아 사용하기 (USE_DECLARED_QUERY)
 ●	미리 정의한 쿼리 찾아보고 없으면 만들기 (CREATE_IF_NOT_FOUND)
 ===========================================================
+20.	스프링 데이터 Common: 쿼리 만들기 실습
+ List<Comment> findByCommentContainsIgnoreCase(String keyword); //대소문자 구별하지 않음
+List<Comment> findByCommentContainsIgnoreCaseAndLikeCountGreaterThan(String keyword, int likeCount ); //대소문자 구별x, likeCount 보다 큰 Comment
+List<Comment> findByCommentContainsIgnoreCaseOrderByLikeCountDesc(String keyword); //대소문자 구별 x, likeCount 내림차순
+Page<Comment> findByCommentContainsIgnoreCaseAndLikeCountGreaterThanEqual(String keyword, int like, Pageable pageable);// 페이징 처리
 
+메소드를 사용하여 조건쿼리 생성
+
+
+===========================================================
 
 
 
