@@ -8,8 +8,12 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.util.concurrent.ListenableFuture;
+import org.springframework.util.concurrent.ListenableFutureCallback;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,14 +25,35 @@ public class CommentRepositoryTest {
     CommentRepository commentRepository;
 
     @Test
-    public void crud() throws IllegalAccessException {
+    public void crud() throws IllegalAccessException, ExecutionException, InterruptedException {
         createComment(2);
         createComment(50);
         createComment(30);
 
 
-        List<Comment> comments=commentRepository.findByCommentContainsIgnoreCase("Spring");
-        assertThat(comments.size()).isEqualTo(3);
+
+        // 비동기 Future 사용
+        Future<List<Comment>> future=
+                commentRepository.findByCommentContainsIgnoreCase("Spring");
+        System.out.println("=====================================");
+        System.out.println("is done?" + future.isDone());
+        assertThat(future.get().size()).isEqualTo(3);
+
+        // 비동기 ListenableFuture 사용
+
+        ListenableFuture<List<Comment>> listenableFuture = commentRepository.findByCommentContainsIgnoreCase("Spring");
+        listenableFuture.addCallback(new ListenableFutureCallback<List<Comment>>() {
+            @Override
+            public void onFailure(Throwable ex) {  //실패할 경우
+                System.out.println(ex);
+            }
+
+            @Override
+            public void onSuccess(List<Comment> result) {  // 성공 할 경우
+                System.out.println("===============");
+                result.forEach(System.out::println);
+            }
+        });
 
         List<Comment> comments1 = commentRepository.findByCommentContainsIgnoreCaseAndLikeCountGreaterThan("spring", 1);
         assertThat(comments1.size()).isEqualTo(3);
