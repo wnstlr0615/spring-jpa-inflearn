@@ -8,8 +8,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @EnableJpaRepositories(repositoryImplementationPostfix="Impl")  //  커스텀 구현체 접미어 변경
 public class Application {
     public static void main(String[] args) {
-        SpringApplication application=new SpringApplication();
-        application.setAdditionalProfiles(args);
-        application.run();
+        SpringApplication.run(Application.class, args);
     }
 }

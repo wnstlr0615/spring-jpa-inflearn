@@ -209,3 +209,17 @@ PostRepositoryTestConfig
         };
     }
 ===========================================================
+25.	스프링 데이터 Common: QueryDSL
+QueryDSL 연동 방법
+1. 의존성 추가
+리파지토리에 QuerydslPredicateExecutor<E> 상속
+QAccount account=QAccount.Account;
+ Predicate predicate= account
+                .firstName.containsIgnoreCase("joon")
+                .and(account.lastName.startsWith("choi"));
+//Predicate 문을 만들고 findOne에 전달
+        Optional<Account> one = accountRepository.findOne(predicate);
+        assertThat(one).isEmpty();
+커스텀 객체는 강의 참조
+
+===========================================================
