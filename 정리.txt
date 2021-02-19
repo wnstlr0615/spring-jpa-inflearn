@@ -164,5 +164,15 @@ Page<Comment> findByCommentContainsIgnoreCaseAndLikeCountGreaterThanEqual(String
 ○	메인 쓰레드 대신 백드라운드 쓰레드가 일하는 정도의 차이.
 ○	단, 백그라운드로 실행하고 결과를 받을 필요가 없는 작업이라면 @Async를 사용해서 응답 속도를 향상 시킬 수는 있다.
 
+===========================================================
 
+22.	스프링 데이터 Common: 커스텀 리포지토리
+
+@Repository
+@Transactional
+public class PostCustomRepositoryImpl  implements PostCustomRepository<Post>{
+
+Impl 클래스를 사용하여 리포지토리를 커스텀하게 사용
+
+기존 있는 메소드 사용시 새로 덮어쓰기가 가능해진다.
 
