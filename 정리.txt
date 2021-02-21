@@ -223,3 +223,21 @@ QAccount account=QAccount.Account;
 커스텀 객체는 강의 참조
 
 ===========================================================
+27.	스프링 데이터 Common: Web 2부: DomainClassConverter
+
+스프링데이터 Common에서 도메인을 자동으로 변환해준다.
+GetMapping("/posts/{id}")
+public String getPost(@PathVariable Long  id){
+    Optional<Post> byId = postRepository.findById(id);
+    Post post=byId.get();
+    return post.getTitle();
+}
+
+//다음과 같은 기존 요청 시  id를 입력 받아 찾은 후 반환해줘야하지만
+도메인으로 등록한 경우
+@GetMapping("/posts1/{id}")
+public String getPost1(@PathVariable("id") Post  post){
+    return post.getTitle();
+}
+자동으로 다음과 같이 변환해준다.
+
