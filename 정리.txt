@@ -240,4 +240,14 @@ public String getPost1(@PathVariable("id") Post  post){
     return post.getTitle();
 }
 자동으로 다음과 같이 변환해준다.
+===========================================================
+28.	스프링 데이터 Common: Web 3부: Pageable과 Sort 매개변수
+
+@GetMapping("/posts")
+public Page<Post> getPosts(Pageable pageable){
+    return postRepository.findAll(pageable);
+}
+
+pageable를 사용하여 데이터를 다음과 같이 요청 할 수 있다.
+===========================================================
 
