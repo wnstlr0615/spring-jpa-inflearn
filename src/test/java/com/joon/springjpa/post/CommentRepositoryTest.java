@@ -15,17 +15,19 @@ public class CommentRepositoryTest {
     CommentRepository commentRepository;
     @Autowired
     PostRepository postRepository;
+
     @Test
     public void getComment(){
         Post post = new Post();
         post.setTitle("spring");
-        postRepository.save(post);
-
-        Comment comment = new Comment();
+        Post savedPost = postRepository.save(post);
+        Comment comment=new Comment();
         comment.setComment("comment");
-        comment.setPost(post);
+        comment.setPost(savedPost);
+        comment.setUp(10);
+        comment.setDown(1);
         commentRepository.save(comment);
-        Optional<Comment> byId = commentRepository.findById(0l);
+        commentRepository.findByPost_Id(1l);
     }
     @Test
     public  void getCommentEager(){
