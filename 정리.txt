@@ -250,4 +250,13 @@ public Page<Post> getPosts(Pageable pageable){
 
 pageable를 사용하여 데이터를 다음과 같이 요청 할 수 있다.
 ===========================================================
+29.	스프링 데이터 Common: Web 4부: HATEOAS
 
+스프링 HATEOAS 사용 방법
+1. 의존성 추가
+2.   PagedResourcesAssembler<Post>를 매개변수에 추가하여 다음과 같이 추가
+@GetMapping("/posts")
+public PagedModel<EntityModel<Post>> getPosts(Pageable pageable, PagedResourcesAssembler<Post> assembler){
+    return assembler.toModel(postRepository.findAll(pageable));
+}
+===========================================================
