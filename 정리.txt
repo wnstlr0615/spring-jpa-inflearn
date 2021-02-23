@@ -281,4 +281,25 @@ updatePost.setTitle("update"); <- Petsistent상태이기 때문에 자동으로 
 매개변수에 Sort를 추가하여 정렬
 List<Post> findAll(Sort sort);
 JpaSort.unsafe("LENGTH(title)") JpaSort를 사용하여 변환 한 값에 대해서 정렬 가능(강의 참조)
+===========================================================
+35.	스프링 데이터 JPA: Named Parameter과 SpEL
+ @Query("SELECT p from #{#entityName} as p where p.title=:title")
+List<Post> findByTitle(@Param("title") String title);
+다음과 같이 @Param을 사용하여 매칭 후 사용 가능
+===========================================================
+36.	스프링 데이터 JPA: Update 쿼리 메소드
+추천하지 않음
+===========================================================
+37.	스프링 데이터 JPA: EntityGraph
+
+쿼리메소드 마다 fetch 전략을 설정 하는 방법
+@NamedEntityGraph(name="Comment.post",
+        attributeNodes = @NamedAttributeNode("post"))
+        Comment.post라는 이름으로 pos만 가져올 때의 그래프를 만듬
+
+ //@EntityGraph(value="Comment.post")
+ @EntityGraph(attributePaths="post", type= EntityGraph.EntityGraphType.FETCH)
+  Optional<Comment> getById(Long id);
+  다음 과 같이 쿼리메소드에 설정
+  사용 결과 기존 연관관계 설정 시 Lazy로 설정한 상태에서 특정 메소드 쿼리로 요청시에는 eager타입으로 사용
 
