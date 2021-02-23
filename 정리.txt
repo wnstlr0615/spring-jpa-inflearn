@@ -260,3 +260,7 @@ public PagedModel<EntityModel<Post>> getPosts(Pageable pageable, PagedResourcesA
     return assembler.toModel(postRepository.findAll(pageable));
 }
 ===========================================================
+31.	스프링 데이터 JPA: JPA Repository
+
+JpaRepository 사용 시 @EnableJpaRepositories 를 붙여줘야 한다.
+하지만 spring boot 사용 시 자동으로 붙여 진다.
