@@ -10,6 +10,7 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+//@NamedQuery(name = "Post.finBytTitle", query = "SELECT  p from Post as p where p.title=?1")
 public class Post extends AbstractAggregateRoot<Post> {
     @Id
     @GeneratedValue

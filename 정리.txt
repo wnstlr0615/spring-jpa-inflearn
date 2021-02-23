@@ -271,3 +271,9 @@ Post post=new Post();
 post.setTitle("hello");
 Post updatePost=postrepository.save(post);
 updatePost.setTitle("update"); <- Petsistent상태이기 때문에 자동으로 update 됨
+===========================================================
+33.	스프링 데이터 JPA: 쿼리 메소드
+엔티티에 @namedQuery등록해서 사용 할 수도 있다.
+@NamedQuery(name = "Post.finBytTitle", query = "SELECT  p from Post as p where p.title=?1")
+@Query(value="select * from Post as p where p.title=?1", nativeQuery=true) 메소드에 쿼리를 붙여서도 사용 가능
+

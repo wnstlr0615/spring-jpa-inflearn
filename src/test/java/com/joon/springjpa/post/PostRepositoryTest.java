@@ -10,6 +10,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
+import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Import(PostRepositoryTestConfig.class)
@@ -34,11 +38,22 @@ public class PostRepositoryTest {
     }
     @Test
     public void crud(){
+        Post post = savePost();
+        postRepository.delete(post);
+        postRepository.flush();
+    }
+
+    private Post savePost() {
         Post post=new Post();
         post.setTitle("hibernate");
         postRepository.save(post);
-        postRepository.delete(post);
-        postRepository.flush();
+        return post;
+    }
 
+    @Test
+    public void findByTitle(){
+        savePost();
+        List<Post> posts = postRepository.findByTitle("hibernate");
+        assertThat(posts.size()).isEqualTo(1);
     }
 }
