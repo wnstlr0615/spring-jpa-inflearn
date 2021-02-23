@@ -276,4 +276,9 @@ updatePost.setTitle("update"); <- Petsistent상태이기 때문에 자동으로 
 엔티티에 @namedQuery등록해서 사용 할 수도 있다.
 @NamedQuery(name = "Post.finBytTitle", query = "SELECT  p from Post as p where p.title=?1")
 @Query(value="select * from Post as p where p.title=?1", nativeQuery=true) 메소드에 쿼리를 붙여서도 사용 가능
+===========================================================
+34.	스프링 데이터 JPA: 쿼리 메소드 Sort
+매개변수에 Sort를 추가하여 정렬
+List<Post> findAll(Sort sort);
+JpaSort.unsafe("LENGTH(title)") JpaSort를 사용하여 변환 한 값에 대해서 정렬 가능(강의 참조)
 

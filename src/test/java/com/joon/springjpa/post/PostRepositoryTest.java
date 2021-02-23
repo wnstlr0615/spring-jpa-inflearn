@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Import;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
@@ -55,5 +56,10 @@ public class PostRepositoryTest {
         savePost();
         List<Post> posts = postRepository.findByTitle("hibernate");
         assertThat(posts.size()).isEqualTo(1);
+    }
+    @Test
+    public void findAll(){
+        savePost();
+        List<Post> title = postRepository.findAll(Sort.by(Sort.Direction.DESC, "title"));
     }
 }
