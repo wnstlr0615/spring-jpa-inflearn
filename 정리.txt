@@ -319,3 +319,7 @@ List<Post> findByTitle(@Param("title") String title);
 클래스 기반 프로젝션
 ●	DTO
 ●	롬복 @Value로 코드 줄일 수 있음
+===========================================================
+39.	스프링 데이터 JPA: Specifications
+QueryDsl에서 Predicate를 사용 하는 방법과 비슷한 쿼리문 작성방법
+강의 참조 (스프링데이터 JPA 9. Specifications)
