@@ -323,3 +323,50 @@ List<Post> findByTitle(@Param("title") String title);
 39.	스프링 데이터 JPA: Specifications
 QueryDsl에서 Predicate를 사용 하는 방법과 비슷한 쿼리문 작성방법
 강의 참조 (스프링데이터 JPA 9. Specifications)
+===========================================================
+40.	스프링 데이터 JPA: Query by Example
+QBE는 필드 이름을 작성할 필요 없이(뻥) 단순한 인터페이스를 통해 동적으로
+쿼리를 만드는 기능을 제공하는 사용자 친화적인 쿼리 기술입니다
+(강의 참조)
+===========================================================
+41.	스프링 데이터 JPA: 트랜잭션
+isolation 설정 설명
+JPA 구현체로 Hibernate를 사용할 때 트랜잭션을 readOnly를 사용하면 좋은 점
+●	Flush 모드를 NEVER로 설정하여, Dirty checking을 하지 않도록 한다.
+===========================================================
+42.	스프링 데이터 JPA: Auditing
+도메인에 @Created @CreatedBy 등에 에노테이션을 이용하여 자동으로 데이터 저장 시간 추가 기능
+
+application에 @EnabelJpaAuditing 를 붙이고
+엔티티에
+@EntityListeners(AuditingEntityListener.class)
+public class Comment {
+ @CreatedDate
+    private Date created;
+
+    @CreatedBy
+    @ManyToOne
+    private Account createdBy;
+    @LastModifiedDate
+    private Date updated;
+
+    @LastModifiedBy
+    @ManyToOne
+    private Account updatedBy;
+
+    다음 처럼 추가
+
+    여기서 사용자를 등록하기 위해서는 시큐리티를 사용해야하며
+
+@Service
+public class AccountAuditAware implements AuditorAware<Account> {
+
+    @Override
+    public Optional<Account> getCurrentAuditor() {
+        System.out.println("Hello ");
+        return Optional.empty();
+    }
+}
+다음 과 같이 등록 해서 사용 하며 @EnableJpaAuditing(auditorAwareRef = "accountAuditAware")
+auditorAwareRef에  AccountAuditAware 추가
+
